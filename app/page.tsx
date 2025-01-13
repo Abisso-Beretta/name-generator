@@ -46,7 +46,6 @@ export default function NameGenerator() {
   const [isMale, setIsMale] = useState(true);
   const [customSurname, setCustomSurname] = useState('');
   const [useCustomSurname, setUseCustomSurname] = useState(false);
-  const [nameLength, setNameLength] = useState('random');
   const [customNameLength, setCustomNameLength] = useState(2);
   
   // 字库状态
@@ -107,18 +106,15 @@ export default function NameGenerator() {
     // 获取姓氏
     const surname = useCustomSurname ? customSurname : surnames[Math.floor(Math.random() * surnames.length)];
     
-    // 确定名字长度
-    const finalNameLength = nameLength === 'random' ? (Math.random() < 0.5 ? 1 : 2) : customNameLength;
-    
     // 选择名字字库
     const namePool = isMale ? maleNames : femaleNames;
     let givenName = '';
     
     // 临时数组，用于跟踪已使用的字
-    const usedChars = [];
+    const usedChars: string[] = [];
     
     // 生成指定长度的名字
-    while (givenName.length < finalNameLength) {
+    while (givenName.length < customNameLength) {
       const randomIndex = Math.floor(Math.random() * namePool.length);
       const newChar = namePool[randomIndex];
       
